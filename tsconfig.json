@@ -12,5 +12,5 @@
       "@assets/*": ["assets/*"],
       "@pages/*": ["pages/*"]
     }
-  }
+  },"exclude":["sst.config.ts"]
 }
