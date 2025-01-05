@@ -7,7 +7,8 @@
     "build": "astro check && astro build",
     "dev": "astro dev",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "sst:deploy": "sst deploy --stage prod"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -24,6 +25,7 @@
     "astro-navbar": "^2.3.2",
     "astro-seo": "^0.8.3",
     "astro-sst": "2.43.5",
+    "dotenv": "^16.4.7",
     "mongodb": "^6.11.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
