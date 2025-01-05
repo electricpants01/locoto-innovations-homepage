@@ -1,0 +1,13 @@
+---
+import SearchAndResults from "../components/SearchAndResults";
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/container.astro";
+import Counter from "../components/Counter";
+---
+
+<Layout title="">
+    <Container>
+        <SearchAndResults client:load/>
+    </Container>
+</Layout>
+<Counter client:load />
