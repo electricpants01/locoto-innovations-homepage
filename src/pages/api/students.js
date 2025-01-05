@@ -1,4 +1,4 @@
-import { createStudent, getAllStudents } from "@lib/students.js";
+import { createStudent, getAllStudents } from "../../lib/students";
 
 export const get = async () => {
     const users = await getAllStudents();

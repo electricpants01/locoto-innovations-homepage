@@ -46,7 +46,7 @@ export const getDB = async () => {
 };
 
 // Export a function to access the "students" collection
-export const Students = async () => {
+export const StudentsCollection = async () => {
     console.log("getting db");
     const db = await getDB();
     console.log("after getting db");

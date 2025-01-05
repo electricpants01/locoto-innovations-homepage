@@ -1,0 +1,28 @@
+---
+import { getAllStudents } from "@lib/students";
+const students = await getAllStudents();
+---
+
+<div class="container mx-auto p-6">
+    <!-- Centered text field -->
+    <div class="flex flex-col items-center mb-8">
+        <input
+                type="text"
+                placeholder="Type something..."
+                class="w-full max-w-md p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+        />
+    </div>
+
+    <!-- Cards -->
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {students.map((card) => (
+              <div
+                      key={card.id}
+                      class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+              >
+                  <h2 class="text-xl font-semibold text-gray-800 mb-2">{card.nombre}</h2>
+                  <p class="text-gray-600">{card.ci}</p>
+              </div>
+      ))}
+    </div>
+</div>
