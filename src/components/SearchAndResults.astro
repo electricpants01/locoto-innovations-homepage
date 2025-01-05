@@ -1,26 +1,39 @@
 ---
-import { getAllStudents } from "@lib/students";
-const students = await getAllStudents();
+import {getAllStudents} from "@lib/students";
+
+const params = Astro.url.searchParams
+const studentSearchName = params.get("name")
+const students = await getAllStudents(studentSearchName || "");
 ---
 
 <div class="container mx-auto p-6">
-    <!-- Centered text field -->
     <div class="flex flex-col items-center mb-8">
-        <input
-                type="text"
-                placeholder="Type something..."
-                class="w-full max-w-md p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
-        />
+        <div class="flex w-full max-w-md">
+            <input
+                    type="text"
+                    placeholder="Type something..."
+                    class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+            <button class="ml-4 px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
+                Submit
+            </button>
+        </div>
     </div>
 
     <!-- Cards -->
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {students.map((card) => (
+      {students.map((card: any) => (
               <div
-                      key={card.id}
                       class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
               >
-                  <h2 class="text-xl font-semibold text-gray-800 mb-2">{card.nombre}</h2>
+                  <h2 class="text-xl font-semibold text-gray-800 mb-2">{card.fullName}</h2>
+                  <p class="text-gray-600">{card.registro}</p>
+                  <p class="text-gray-600">{card.carr}</p>
+                  <p class="text-gray-600">{card.telefono}</p>
+                  <p class="text-gray-600">{card.carrera}</p>
+                  <p class="text-gray-600">{card.ubicacion}</p>
+                  <p class="text-gray-600">{card.fecha_nac}</p>
+                  <p class="text-gray-600">{card.sexo}</p>
                   <p class="text-gray-600">{card.ci}</p>
               </div>
       ))}
