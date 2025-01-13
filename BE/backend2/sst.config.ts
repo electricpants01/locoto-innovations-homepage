@@ -16,8 +16,8 @@ export default {
     app.stack(function Stack({ stack }) {
       const api = new Api(stack, "api", {
         routes: {
-          "GET /": "functions/lambda.handler",         // Root route
-          "GET /search": "functions/lambda.handler",   // Search route
+          "GET /": "functions/lambda.handler",
+          "GET /search": "functions/lambda.handler",
         },
       });
 
