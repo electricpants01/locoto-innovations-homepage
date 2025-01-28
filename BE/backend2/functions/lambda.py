@@ -9,9 +9,6 @@ db = client['uagrm_db']
 collection = db['students']
 
 def handler(event, context):
-  print("Chris handler triggered :D")
-  print("Event: ", json.dumps(event, indent=2))
-
   path = event.get("rawPath", "")
   method = event.get("requestContext", {}).get("http", {}).get("method", "")
   query_params = event.get("queryStringParameters", {})
@@ -34,33 +31,33 @@ def handler(event, context):
       return generate_response(405, {"message": "Method not allowed"})
 
   except Exception as e:
-    print("Unexpected error: ", str(e))
     return generate_response(500, {"message": "Internal server error"})
-
 
 def get_all_lists():
   try:
-    print("Fetching all lists")
-    # Retrieve up to 30 documents
+    # Retrieve up to 30 documents and handle datetime serialization
     results = list(collection.find({}, {"_id": 0}).limit(30))
-    return generate_response(200, results)
+    serialized_results = json.loads(json.dumps(results, default=str))
+    return generate_response(200, serialized_results)
   except Exception as e:
-    print("Error retrieving lists: ", str(e))
     return generate_response(500, {"message": f"Error retrieving lists: {str(e)}"})
-
 
 def search_list_by_name(name):
   try:
     print(f"Searching for list with name: {name}")
-    result = collection.find_one({"name": name}, {"_id": 0})
+    result = collection.find(
+      {"fullName": {"$regex": f"^{name}$", "$options": "i"}},
+      {"_id": 0}
+    ).limit(30)  # Limit to the first 30 items
     if result:
-      return generate_response(200, result)
+      # Ensure datetime objects are converted to strings
+      serialized_result = json.loads(json.dumps(result, default=str))
+      return generate_response(200, serialized_result)
     else:
       return generate_response(404, {"message": "List not found"})
   except Exception as e:
     print("Error searching list: ", str(e))
     return generate_response(500, {"message": f"Error searching list: {str(e)}"})
-
 
 def generate_response(status_code, body):
   return {
