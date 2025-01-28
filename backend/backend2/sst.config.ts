@@ -4,7 +4,7 @@ import { Api } from "sst/constructs";
 export default {
   config(_input) {
     return {
-      name: "backend2",
+      name: "UagrmStudentApi",
       region: "us-east-1",
     };
   },
