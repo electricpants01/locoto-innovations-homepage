@@ -42,21 +42,23 @@ def get_all_lists():
   except Exception as e:
     return generate_response(500, {"message": f"Error retrieving lists: {str(e)}"})
 
-def search_list_by_name(name):
+def search_list_by_name(fullName):
   try:
-    print(f"Searching for list with name: {name}")
-    result = collection.find(
-      {"fullName": {"$regex": f"^{name}$", "$options": "i"}},
-      {"_id": 0}
-    ).limit(30)  # Limit to the first 30 items
-    if result:
-      # Ensure datetime objects are converted to strings
-      serialized_result = json.loads(json.dumps(result, default=str))
-      return generate_response(200, serialized_result)
+
+    # Use regex for case-insensitive search and limit to 30 results
+    query = {"fullName": {"$regex": f"^{fullName}", "$options": "i"}}
+
+    results = collection.find(query, {"_id": 0}).limit(30)  # Limit to the first 30 items
+
+    # Convert cursor to list
+    result_list = list(results)
+
+    if result_list:
+      serialized_results = json.loads(json.dumps(result_list, default=str))
+      return generate_response(200, serialized_results)
     else:
-      return generate_response(404, {"message": "List not found"})
+      return generate_response(404, {"message": "No matching lists found"})
   except Exception as e:
-    print("Error searching list: ", str(e))
     return generate_response(500, {"message": f"Error searching list: {str(e)}"})
 
 def generate_response(status_code, body):
