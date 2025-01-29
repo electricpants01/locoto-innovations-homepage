@@ -1,5 +1,5 @@
 ---
-import SearchAndResults from "../components/SearchAndResults.astro";
+import SearchAndResult from "../components/SearchAndResult";
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/container.astro";
 import Counter from "../components/Counter";
@@ -7,7 +7,7 @@ import Counter from "../components/Counter";
 
 <Layout title="">
     <Container>
-        <SearchAndResults/>
+        <SearchAndResult client:load/>
     </Container>
 </Layout>
 <Counter client:load />
