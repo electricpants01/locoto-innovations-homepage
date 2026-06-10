@@ -1,0 +1,18 @@
+# 🧠 AI Context — Read on Every Session
+
+At the **start of every session**, you **MUST** read the following files in order to gain full project context before doing any work:
+
+1. **AI/README.md** — Overview of the AI folder and project summary
+2. **AI/profile.md** — Owner's full profile: background, work experience, skills, links
+3. **AI/architecture.md** — Tech stack, design system, file structure, configurations
+4. **AI/context.md** — Current project state: what's done, what's pending, design decisions
+
+Then, based on the specific task:
+- **Browse AI/skills/** — Deep-dive into skill categories (mobile, architecture, tools)
+- **Check AI/agents/** — Use the appropriate pre-defined agent role for the task (ui-agent, content-agent, dev-agent, blog-agent, deploy-agent)
+
+---
+
+## Why?
+
+The `AI/` folder is the **single source of truth** for this project. Skipping it means you lack essential context about the owner, the tech stack, and what has already been done.
