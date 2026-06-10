@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://electricpants01.github.io',
+  base: '/locoto-innovations-homepage',
   vite: {
     plugins: [tailwindcss()]
   }

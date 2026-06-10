@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
@@ -20,7 +22,7 @@ function formatDate(date: Date) {
   >
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
+      <a href={base} class="flex items-center gap-2 group">
         <div class="w-7 h-7 text-cyan-400">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -35,7 +37,7 @@ function formatDate(date: Date) {
 
       <!-- Nav links -->
       <div class="flex items-center gap-6">
-        <a href="/blog" class="text-sm font-medium text-cyan-400">Blog</a>
+        <a href={`${base}/blog`} class="text-sm font-medium text-cyan-400">Blog</a>
         <a
           href="https://github.com/electricpairs01"
           target="_blank" rel="noopener noreferrer"
@@ -63,7 +65,7 @@ function formatDate(date: Date) {
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {posts.map((post) => (
         <a
-          href={`/blog/${post.id}`}
+          href={`${base}/blog/${post.id}`}
           class="group rounded-xl overflow-hidden border border-[#30363d] bg-[#161b22] hover:border-cyan-500/40 hover:bg-[#1a2234] transition-all block"
         >
           <!-- Cover image -->
@@ -105,7 +107,7 @@ function formatDate(date: Date) {
     <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-[#6e7681] text-sm">© 2026 Christian Torrico</p>
       <div class="flex gap-5">
-        <a href="/" class="text-[#6e7681] hover:text-white transition-colors text-sm">Home</a>
+        <a href={base} class="text-[#6e7681] hover:text-white transition-colors text-sm">Home</a>
         <a href="https://github.com/electricpairs01" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">GitHub</a>
         <a href="https://www.linkedin.com/in/christian-torrico/" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">LinkedIn</a>
       </div>

@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL;
+
 const recentPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -177,7 +179,7 @@ const projects = [
   <nav class="sticky top-0 z-50 border-b border-[#21262d]" style="background-color: rgba(13,17,23,0.85); backdrop-filter: blur(12px);">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 font-bold text-lg group">
+      <a href={base} class="flex items-center gap-2 font-bold text-lg group">
         <span class="text-2xl">📱</span>
         <span class="text-white group-hover:text-cyan-400 transition-colors">Christian's Blog</span>
       </a>
@@ -185,7 +187,7 @@ const projects = [
       <!-- Nav Links -->
       <div class="flex items-center gap-6">
         <a
-          href="/blog"
+          href={`${base}/blog`}
           class="text-[#8b949e] hover:text-white transition-colors text-sm font-medium"
         >
           Blog
@@ -417,7 +419,7 @@ const projects = [
           Recent <span class="text-cyan-400">Posts</span>
         </h2>
         <a
-          href="/blog"
+          href={`${base}/blog`}
           class="text-sm text-[#8b949e] hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
         >
           View all posts →
@@ -428,7 +430,7 @@ const projects = [
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
         {recentPosts.map((post) => (
           <a
-            href={`/blog/${post.id}`}
+            href={`${base}/blog/${post.id}`}
             class="group rounded-xl overflow-hidden border border-[#30363d] bg-[#161b22] hover:border-cyan-500/40 hover:bg-[#1a2234] transition-all block"
           >
             <div class="overflow-hidden h-44">
@@ -473,7 +475,7 @@ const projects = [
               Get in Touch
             </a>
             <a
-              href="/blog"
+              href={`${base}/blog`}
               class="px-6 py-3 rounded-xl border border-[#30363d] hover:border-cyan-500/40 text-white font-medium transition-all hover:scale-105 text-sm text-center bg-[#161b22] hover:bg-[#1a2234]"
             >
               Read my Blog
