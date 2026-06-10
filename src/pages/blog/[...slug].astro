@@ -1,0 +1,244 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+---
+
+<Layout title={`${post.data.title} | Christian Torrico`}>
+
+  <!-- Navbar -->
+  <nav
+    class="sticky top-0 z-50 border-b border-[#21262d]"
+    style="background-color: rgba(13,17,23,0.90); backdrop-filter: blur(12px);"
+  >
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-7 h-7 text-cyan-400">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <path d="M7 8h2M7 12h10M15 8h2"/>
+          </svg>
+        </div>
+        <span class="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">
+          Christian's Blog
+        </span>
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="/blog" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">Blog</a>
+        <a href="https://github.com/electricpairs01" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/in/christian-torrico/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">LinkedIn</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Post content -->
+  <article class="max-w-3xl mx-auto px-6 py-16">
+
+    <!-- Header -->
+    <header class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+        {post.data.title}
+      </h1>
+      <p class="text-[#8b949e] text-sm">
+        By <span class="text-white font-medium">{post.data.author}</span>
+        &nbsp;·&nbsp;
+        {formatDate(post.data.date)}
+      </p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 justify-center mt-4">
+        {post.data.tags.map((tag) => (
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <!-- Cover image -->
+    <div class="rounded-2xl overflow-hidden mb-12">
+      <img
+        src={post.data.image}
+        alt={post.data.title}
+        class="w-full h-auto object-cover"
+      />
+    </div>
+
+    <!-- Markdown content -->
+    <div class="prose-content">
+      <Content />
+    </div>
+
+    <!-- Back link -->
+    <div class="mt-16 pt-8 border-t border-[#21262d]">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Back to all posts
+      </a>
+    </div>
+
+  </article>
+
+  <!-- Footer -->
+  <footer class="border-t border-[#21262d]">
+    <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-[#6e7681] text-sm">© 2026 Christian Torrico</p>
+      <div class="flex gap-5">
+        <a href="/" class="text-[#6e7681] hover:text-white transition-colors text-sm">Home</a>
+        <a href="https://github.com/electricpairs01" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">GitHub</a>
+        <a href="https://www.linkedin.com/in/christian-torrico/" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+</Layout>
+
+<style>
+  /* Article prose styles */
+  .prose-content :global(h2) {
+    color: #e6edf3;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 0.5rem;
+  }
+
+  .prose-content :global(h3) {
+    color: #e6edf3;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-content :global(p) {
+    color: #c9d1d9;
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    color: #c9d1d9;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: 0.4rem;
+    line-height: 1.7;
+  }
+
+  .prose-content :global(strong) {
+    color: #e6edf3;
+    font-weight: 600;
+  }
+
+  .prose-content :global(em) {
+    color: #c9d1d9;
+    font-style: italic;
+  }
+
+  .prose-content :global(code:not(pre code)) {
+    background-color: #1f2937;
+    color: #22d3ee;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    border: 1px solid #374151;
+  }
+
+  .prose-content :global(pre) {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose-content :global(pre code) {
+    background: none;
+    color: #e6edf3;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    line-height: 1.7;
+  }
+
+  .prose-content :global(blockquote) {
+    border-left: 3px solid #22d3ee;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #8b949e;
+    font-style: italic;
+  }
+
+  .prose-content :global(a) {
+    color: #22d3ee;
+    text-decoration: underline;
+    text-decoration-color: #22d3ee40;
+  }
+
+  .prose-content :global(a:hover) {
+    color: #67e8f9;
+    text-decoration-color: #67e8f9;
+  }
+
+  .prose-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .prose-content :global(th) {
+    background-color: #161b22;
+    color: #e6edf3;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border: 1px solid #30363d;
+    text-align: left;
+  }
+
+  .prose-content :global(td) {
+    color: #c9d1d9;
+    padding: 0.6rem 1rem;
+    border: 1px solid #30363d;
+  }
+
+  .prose-content :global(tr:hover td) {
+    background-color: #161b22;
+  }
+
+  .prose-content :global(hr) {
+    border: none;
+    border-top: 1px solid #21262d;
+    margin: 2rem 0;
+  }
+</style>

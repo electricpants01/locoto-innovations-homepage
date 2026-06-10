@@ -1,69 +1,32 @@
 ---
-import { SEO } from "astro-seo";
-import Footer from "@components/footer.astro";
-import Navbar from "@components/navbar/navbar.astro";
+import '../styles/global.css';
 
-
-
-export interface Props {
-    title: string;
+interface Props {
+  title?: string;
+  description?: string;
 }
 
-// const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-//
-// const resolvedImageWithDomain = new URL(
-//   "/opengraph.jpg",
-//   Astro.site
-// ).toString();
-
-const { title } = Astro.props;
-
-const makeTitle = title
-  ? title + " | " + "Astroship"
-  : "Astroship - Starter Template for Astro with Tailwind CSS";
+const {
+  title = "Christian Torrico | Senior Mobile Engineer",
+  description = "Senior Mobile Engineer with 5+ years of experience building robust Android and mobile applications using Kotlin, Jetpack Compose, and modern architecture patterns.",
+} = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+  <head>
+    <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
-    <!--<SEO-->
-    <!--  title={makeTitle}-->
-    <!--  description="Astroship is a starter website template for Astro built with TailwindCSS."-->
-    <!--  canonical={canonicalURL}-->
-    <!--  twitter={{-->
-    <!--      creator: "@surjithctly",-->
-    <!--      site: "@web3templates",-->
-    <!--      card: "summary_large_image",-->
-    <!--  }}-->
-    <!--  openGraph={{-->
-    <!--      basic: {-->
-    <!--          url: canonicalURL,-->
-    <!--          type: "website",-->
-    <!--          title: `Astroship - Starter Template for Astro`,-->
-    <!--          image: resolvedImageWithDomain,-->
-    <!--      },-->
-    <!--      image: {-->
-    <!--          alt: "Astroship Homepage Screenshot",-->
-    <!--      },-->
-    <!--  }}-->
-    <!--/>-->
-</head>
-<body>
-<Navbar />
-<slot />
-<Footer />
-<style is:global>
-    /* Improve Page speed */
-    /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
-    img {
-        content-visibility: auto;
-    }
-</style>
-</body>
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body style="font-family: 'Inter', sans-serif; background-color: #0d1117; color: #e6edf3;">
+    <slot />
+  </body>
 </html>
