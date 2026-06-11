@@ -2,8 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const base = import.meta.env.BASE_URL;
-
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
@@ -28,7 +26,7 @@ function formatDate(date: Date) {
     style="background-color: rgba(13,17,23,0.90); backdrop-filter: blur(12px);"
   >
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href={base} class="flex items-center gap-2 group">
+      <a href="/" class="flex items-center gap-2 group">
         <div class="w-7 h-7 text-cyan-400">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -41,7 +39,7 @@ function formatDate(date: Date) {
         </span>
       </a>
       <div class="flex items-center gap-6">
-        <a href={`${base}/blog`} class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">Blog</a>
+        <a href="/blog" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">Blog</a>
         <a href="https://github.com/electricpairs01" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">GitHub</a>
         <a href="https://www.linkedin.com/in/christian-torrico/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#8b949e] hover:text-white transition-colors">LinkedIn</a>
       </div>
@@ -89,7 +87,7 @@ function formatDate(date: Date) {
     <!-- Back link -->
     <div class="mt-16 pt-8 border-t border-[#21262d]">
       <a
-        href={`${base}/blog`}
+        href="/blog"
         class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -106,7 +104,7 @@ function formatDate(date: Date) {
     <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-[#6e7681] text-sm">© 2026 Christian Torrico</p>
       <div class="flex gap-5">
-        <a href={base} class="text-[#6e7681] hover:text-white transition-colors text-sm">Home</a>
+        <a href="/" class="text-[#6e7681] hover:text-white transition-colors text-sm">Home</a>
         <a href="https://github.com/electricpairs01" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">GitHub</a>
         <a href="https://www.linkedin.com/in/christian-torrico/" target="_blank" rel="noopener noreferrer" class="text-[#6e7681] hover:text-white transition-colors text-sm">LinkedIn</a>
       </div>
