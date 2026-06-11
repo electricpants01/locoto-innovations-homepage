@@ -170,3 +170,59 @@ npm run build
 # Size: ~small (pure static HTML/CSS)
 # Deploy: Upload dist/ to any static host
 ```
+
+---
+
+## Blog Subdomain Setup (S3 Redirect)
+
+`blog.locotoinnovations.com` redirects to `https://locotoinnovations.com/blog/` via an S3 static website redirect bucket.
+
+### Architecture
+
+```
+blog.locotoinnovations.com
+  → Route 53 CNAME → blog.locotoinnovations.com.s3-website-us-east-1.amazonaws.com
+  → S3 Bucket (empty, routing rules only)
+  → HTTP 301 → https://locotoinnovations.com/blog/
+```
+
+### S3 Bucket
+
+- **Bucket name:** `blog.locotoinnovations.com`
+- **Region:** us-east-1
+- **AWS Console:** https://us-east-1.console.aws.amazon.com/s3/buckets/blog.locotoinnovations.com?region=us-east-1&tab=properties
+
+### S3 Website Configuration
+
+```json
+{
+  "IndexDocument": { "Suffix": "index.html" },
+  "RoutingRules": [
+    {
+      "Condition": { "KeyPrefixEquals": "" },
+      "Redirect": {
+        "HostName": "locotoinnovations.com",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "blog/"
+      }
+    }
+  ]
+}
+```
+
+### Route 53 Record
+
+- **Name:** `blog.locotoinnovations.com`
+- **Type:** CNAME
+- **Value:** `blog.locotoinnovations.com.s3-website-us-east-1.amazonaws.com`
+- **TTL:** 300
+
+### How it works
+
+`ReplaceKeyPrefixWith` does find & replace on the URL path:
+- `blog.locotoinnovations.com/` → `https://locotoinnovations.com/blog/`
+- `blog.locotoinnovations.com/some-post` → `https://locotoinnovations.com/blog/some-post`
+
+### Why S3 instead of GitHub Pages?
+
+GitHub Pages only allows **1 custom domain per repository**. Since `locotoinnovations.com` is already configured, we can't add `blog.locotoinnovations.com` to the same repo. S3 redirect is the standard AWS solution for subdomain redirects.

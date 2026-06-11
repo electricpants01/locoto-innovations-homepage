@@ -285,3 +285,25 @@ All posts feature:
 - `<meta name="description">`: Full professional summary
 - Favicon: `/favicon.svg` and `/favicon.ico`
 - `lang="en"` on html tag
+
+---
+
+## Infrastructure
+
+| Component | Service | Detail |
+|-----------|---------|--------|
+| **DNS** | AWS Route 53 | Hosted zone: `locotoinnovations.com` |
+| **Hosting** | GitHub Pages | Repo: `electricpants01/locoto-innovations-homepage` |
+| **SSL** | Let's Encrypt (GitHub) | Auto-provisioned for custom domain |
+| **Blog subdomain** | AWS S3 | `blog.locotoinnovations.com` → redirect → `/blog/` |
+| **Email** | AWS SES + WorkMail | MX records configured |
+
+### Blog Subdomain Redirect
+
+```
+blog.locotoinnovations.com
+  → Route 53 CNAME → S3 bucket (static website redirect)
+  → HTTP 301 → https://locotoinnovations.com/blog/
+```
+
+See `AI/agents/deploy-agent.md` for full S3 configuration details.

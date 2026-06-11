@@ -19,6 +19,19 @@
 11. ✅ Implemented `/blog/[slug]` individual post pages
 12. ✅ Updated homepage Recent Posts to show 3 latest articles
 
+
+### Session 2 — June 10, 2026 (continued)
+**Goal:** Deploy to custom domain and fix production issues.
+
+**What was accomplished:**
+1. ✅ Fixed Astro `base` config — changed from `/locoto-innovations-homepage` to `/` for custom domain
+2. ✅ Removed all `import.meta.env.BASE_URL` references from source files (4 files)
+3. ✅ Updated `astro.config.mjs` — `site: 'https://locotoinnovations.com'`
+4. ✅ Enabled Enforce HTTPS in GitHub Pages settings
+5. ✅ Replaced Android robot SVG avatar with real profile photo (`/public/profile.jpeg`)
+6. ✅ Created `blog.locotoinnovations.com` subdomain → S3 redirect bucket → `/blog/`
+7. ✅ Added Route 53 CNAME for blog subdomain pointing to S3 website endpoint
+
 ---
 
 ## Current Project State
@@ -45,12 +58,14 @@
 ### ⏳ Pending / TODO
 - [x] **GitHub URL** — Updated to `https://github.com/electricpairs01` in all locations
 - [x] **Blog** — 6 Android engineering articles published (Astro content collections)
+- [x] **Deploy** — Deployed to GitHub Pages at `https://locotoinnovations.com` with Enforce HTTPS enabled
+- [x] **Custom domain** — `locotoinnovations.com` configured in Route 53 → GitHub Pages
+- [x] **Profile photo** — Replaced SVG avatar with real photo `/public/profile.jpeg`
+- [x] **Blog subdomain** — `blog.locotoinnovations.com` redirects to `/blog/` via S3 static website redirect bucket
 - [ ] **Real projects** — Current projects are inferred from work experience. When Christian has public GitHub repos, update with real links
-- [ ] **Profile photo** — Currently using a custom SVG Android robot avatar. Could be replaced with a real photo in `/public/`
 - [ ] **Twitter/X** — Not provided. Could add if Christian creates one
 - [ ] **Hamburger menu** — No mobile nav drawer yet (nav links always visible)
 - [ ] **SEO** — Could add Open Graph meta tags for social sharing previews
-- [ ] **Deploy** — Not deployed yet. See `AI/agents/deploy-agent.md`
 
 ---
 
